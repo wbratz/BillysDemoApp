@@ -1,0 +1,6 @@
+@CodeExecution_HostAddress = http://localhost:5119
+
+GET {{CodeExecution_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

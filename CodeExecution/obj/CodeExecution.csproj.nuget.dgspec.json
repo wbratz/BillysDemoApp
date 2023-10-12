@@ -1,0 +1,90 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Dev\\BillysDemoApp\\CodeExecution\\CodeExecution.csproj": {}
+  },
+  "projects": {
+    "C:\\Dev\\BillysDemoApp\\CodeExecution\\CodeExecution.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Dev\\BillysDemoApp\\CodeExecution\\CodeExecution.csproj",
+        "projectName": "CodeExecution",
+        "projectPath": "C:\\Dev\\BillysDemoApp\\CodeExecution\\CodeExecution.csproj",
+        "packagesPath": "C:\\Users\\BBratz\\.nuget\\packages\\",
+        "outputPath": "C:\\Dev\\BillysDemoApp\\CodeExecution\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\BBratz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {},
+          "https://repo.carvana.com/repository/Carvana-All/": {},
+          "https://repo.carvana.com/repository/Carvana-PreRelease/": {},
+          "https://repo.carvana.com/repository/Carvana-Prod/": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "CS-Script.Core": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            },
+            "Microsoft.CodeAnalysis.CSharp.Scripting": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
+            "NameComparisonToolkit": {
+              "target": "Package",
+              "version": "[1.0.2, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100-rc.2.23502.2/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
