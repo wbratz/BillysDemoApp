@@ -6,14 +6,27 @@
 
 @page "/"
 
-<PageTitle>Title</PageTitle>
+<PageTitle>Code Snippet Demo App</PageTitle>
 
 <MudGrid Style="padding-top: 10px; padding-left: 2px">
     <MudItem xs="12" sm="6">
-        <MudTextField T="string" Label="Code" Variant="Variant.Text" @bind-Value="_code" Lines="25" DisableUnderLine/>
-        <MudTextField @bind-Value="_methodName" Label="Execution Method Name" Variant="Variant.Text"></MudTextField>
-        <MudTextField T="string" Label="Comma Separated Params" Variant="Variant.Text" @bind-Value="_userParams" Lines="2" />
-        <MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="RunScript">Run</MudButton>
+        <MudTextField T="string" Label="Code" Variant="Variant.Outlined" @bind-Value="_code" Lines="25" spellcheck="false"/>
+        <br />
+        <MudTextField @bind-Value="_methodName" Label="Execution Method Name" Variant="Variant.Text" spellcheck="false"></MudTextField>
+        <br
+        <MudTextField T="string" Label="Comma Separated Params" Variant="Variant.Text" @bind-Value="_userParams" spellcheck="false" />
+        <br />
+        <MudButton Disabled="@_processing" Variant="Variant.Filled" Color="Color.Secondary" OnClick="RunScript">
+            @if (_processing)
+            {
+                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
+                <MudText Class="ms-2">Running</MudText>
+            }
+            else
+            {
+                 <MudText>Run</MudText>
+            }
+        </MudButton>
     </MudItem>
     <MudItem xs="12" sm="6">
         <MudPaper Elevation="1" Class="mud-theme-primary" >
@@ -46,19 +59,33 @@ public class MyClass //do not change
 {
     //paste code here
 }";
+
+    private bool _processing = false;
     private HttpClient _httpClient = new HttpClient();
 
     private async Task RunScript()
     {
-        var parameters = Regex.Split(_userParams, @"(?<!\\),").Select(p => p.Replace("\\,", ",").Trim()).ToList();
-        var request = new Request(usingStatements + _code, _methodName, new List<object>(parameters));
+        _processing = true;
+        try
+        {
+            var parameters = Regex.Split(_userParams, @"(?<!\\),").Select(p => p.Replace("\\,", ",").Trim()).ToList();
+            var request = new Request(usingStatements + _code, _methodName, new List<object>(parameters));
 
-        string json = JsonConvert.SerializeObject(request);
-        var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+            string json = JsonConvert.SerializeObject(request);
+            var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-        var response = await _httpClient.PostAsync("https://localhost:7136/CodeExecution", stringContent);
-        var rawJson = await response.Content.ReadAsStringAsync();
-        dynamic parsedJson = JsonConvert.DeserializeObject(rawJson);
-        output = JsonConvert.SerializeObject(parsedJson, Formatting.Indented);
+            var response = await _httpClient.PostAsync("https://localhost:7136/CodeExecution", stringContent);
+            var rawJson = await response.Content.ReadAsStringAsync();
+            dynamic parsedJson = JsonConvert.DeserializeObject(rawJson);
+            output = JsonConvert.SerializeObject(parsedJson, Formatting.Indented);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        finally
+        {
+            _processing = false;
+        }
     }
 }
